@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 
-function ItemForm({newItemName, newItemCategory, handleNewItemName, handleNewItemCategory, onItemFormSubmit}) {
+function ItemForm({onItemFormSubmit}) {
+  const [newItemCategory, setNewItemCategory] = useState("Produce")
+  const [newItemName, setNewItemName] = useState("")
+
+  function handleNewItemName(event) {
+    setNewItemName(event.target.value)
+  }
+
+  function handleNewItemCategory(event) {
+    setNewItemCategory(event.target.value)
+  }
+
   function handleSubmit(event) {
     event.preventDefault()
-    const newItem = {
+    onItemFormSubmit({
       id: uuid(), // the `uuid` library can be used to generate a unique id
       name: newItemName,
       category: newItemCategory,
-    };
-    console.log('newItem',newItem)
+    });
+    console.log('onItemFormSubmit',onItemFormSubmit)
   }
 
   return (
